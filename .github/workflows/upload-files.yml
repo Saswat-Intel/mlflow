@@ -1,0 +1,61 @@
+name: Upload Model and Dataset
+
+on:
+    workflow_dispatch:
+        inputs:
+            branch_name:
+                description: "Branch to upload files to"
+                required: true
+            model_file:
+                description: "Base64-encoded model file"
+                required: true
+            dataset_file:
+                description: "Base64-encoded dataset file"
+                required: true
+            model_name:
+                description: "Name of the model"
+                required: true
+            dataset_name:
+                description: "Name of the dataset"
+                required: true
+            # git_user_name:
+            #     description: "User Name"
+            #     required: true
+            # git_email:
+            #     description: "User Email"
+            #     required: true
+
+jobs:
+    upload-files:
+        runs-on: ubuntu-latest
+
+        steps:
+        - name: Checkout the repository
+          uses: actions/checkout@v3
+
+        # - name: Set up Git user
+        #   run: |
+        #     git config --global user.name "${{github.event.inputs.git_user_name}}"
+        #     git config --global user.email "${{github.event.inputs.git_email}}"
+
+        - name: Create directories
+          run: |
+            mkdir -p models datasets
+        
+        - name: Decode and upload model file
+          run: |
+            echo "${{github.event.inputs.model_file}}" | base64 --decode > models/${{github.event.inputs.model_name}}
+            git add models/${{github.event.inputs.model_name}}
+            git commit -m "Add model file to models directory"
+            git push origin ${{github.event.inputs.branch_name}}
+        
+        - name: Decode and upload dataset file
+          run: |
+            echo "${{github.event.inputs.dataset_file}}" | base64 --decode > datasets/${{github.event.inputs.dataset_name}}
+            git add datasets/${{github.event.inputs.dataset_name}}
+            git commit -m "Add dataset file to datasets directory"
+            git push origin ${{github.event.inputs.branch_name}}
+
+        - name: Confirm files uploaded
+          run: echo "Model and dataset files have been uploaded successfully to their respective directories."
+          
