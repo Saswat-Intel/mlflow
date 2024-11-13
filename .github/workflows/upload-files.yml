@@ -18,12 +18,6 @@ on:
             dataset_name:
                 description: "Name of the dataset"
                 required: true
-            # git_user_name:
-            #     description: "User Name"
-            #     required: true
-            # git_email:
-            #     description: "User Email"
-            #     required: true
 
 jobs:
     upload-files:
@@ -32,11 +26,6 @@ jobs:
         steps:
         - name: Checkout the repository
           uses: actions/checkout@v3
-
-        # - name: Set up Git user
-        #   run: |
-        #     git config --global user.name "${{github.event.inputs.git_user_name}}"
-        #     git config --global user.email "${{github.event.inputs.git_email}}"
 
         - name: Create directories
           run: |
