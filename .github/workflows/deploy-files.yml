@@ -34,5 +34,4 @@ jobs:
     
     - name: Deploy Notebooks to Databricks
       run: |
-        source venv/bin/activate
         databricks workspace import_dir --overwrite notebooks /Workspace/notebooks
