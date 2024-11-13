@@ -1,7 +1,6 @@
 name: Publish Notebooks as Artifacts
 
 on:
-
   workflow_dispatch:  # Allows manual triggering
 
 jobs:
