@@ -1,0 +1,38 @@
+name: Publish Notebooks as Artifacts
+
+on:
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  publish-artifacts:
+    name: Publish Notebooks Artifacts
+    runs-on: ubuntu-latest
+    
+    env:
+      DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+      DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Upload Notebooks as Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: mlops_artifacts
+        path: notebooks
+    
+    - name: Install Databricks CLI
+      run: |
+        curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh     
+
+    - name: Configure Databricks CLI with PAT
+      run: |
+        echo "[DEFAULT]" > ~/.databrickscfg
+        echo "host = $DATABRICKS_HOST" >> ~/.databrickscfg
+        echo "token = $DATABRICKS_TOKEN" >> ~/.databrickscfg
+    
+    - name: Deploy Notebooks to Databricks
+      run: |
+        source venv/bin/activate
+        databricks workspace import_dir --overwrite notebooks /Workspace/notebooks
