@@ -1,0 +1,19 @@
+name: Publish Notebooks as Artifacts
+
+on:
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  publish-artifacts:
+    name: Publish Notebooks Artifacts
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Upload Notebooks as Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: mlops_artifacts/notebooks
+        path: notebooks
