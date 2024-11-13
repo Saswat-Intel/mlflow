@@ -29,8 +29,8 @@ jobs:
     
     - name: Set up Git user
       run: |
-        git config --global user.name "goelekta"
-        git config --global user.email "ekta.goel@intel.com"
+        git config --global user.name "Saswat-Intel"
+        git config --global user.email "saswat.behera@intel.com"
     
     - name: Create necessary directories
       run: |
