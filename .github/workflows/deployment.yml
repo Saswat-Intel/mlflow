@@ -7,6 +7,10 @@ jobs:
   publish-artifacts:
     name: Publish Notebooks Artifacts
     runs-on: ubuntu-latest
+    
+    env:
+      DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+      DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
 
     steps:
     - name: Checkout Code
