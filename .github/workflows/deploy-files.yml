@@ -34,4 +34,4 @@ jobs:
     
     - name: Deploy Notebooks to Databricks
       run: |
-        databricks workspace import_dir --overwrite notebooks /Workspace/notebooks
+        databricks workspace import-dir notebooks /Workspace/notebooks
