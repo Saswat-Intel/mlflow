@@ -19,6 +19,7 @@ github_token = st.text_input("GitHub Token", type="password")
 uploaded_model = st.file_uploader("Upload Model File (.pkl format)", type=["pkl"])
 uploaded_dataset = st.file_uploader("Upload Dataset File (.csv format)", type=["csv"])
 
+
 # Button to trigger GitHub Actions
 if st.button("Upload Model"):
     
@@ -106,5 +107,6 @@ if st.button("Upload Model"):
         else:
             st.error(f"Failed to create branch! Status code: {response_create_branch.status_code}")
             st.write(response_create_branch.json())
+
     else:
         st.error("Please fill out all the fields!")
